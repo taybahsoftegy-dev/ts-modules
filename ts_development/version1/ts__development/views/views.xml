@@ -1,0 +1,84 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+
+    <record model="ir.ui.view" id="develop_track_tree" >
+            <field name="name">develop track tree</field>
+            <field name="model">development.tracking</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="serial"/>
+                    <field name="Date"/>
+                    <field name="module"/>
+                    <field name="form"/>
+                    <field name="report"/>
+                    <field name="new"/>
+                    <field name="description"/>
+                    <field name="status"/>
+                    <field name="time_consumed"/>
+                </tree>
+            </field>
+    </record>
+    <record model="ir.ui.view" id="develop_track_form" >
+            <field name="name">develop track form</field>
+            <field name="model">development.tracking</field>
+            <field name="arch" type="xml">
+                <form string="Tracking Development">
+                  <sheet>
+                    <group>
+                        <group>
+                           <field name="serial"/>
+                           <field name="Date"/>
+                        </group>
+                        <group>
+                          <field name="module"/>
+                          <field name="form"/>
+                          <field name="report"/>
+                          <field name="new"/>
+                        </group>
+                    </group>
+                    <group>
+                      <group>
+                        <field name="status"/>
+                        <field name="time_consumed"/>
+                      </group>
+                      <group>
+                        <field name="description"/>
+                      </group>
+                    </group>
+                  </sheet>
+                  <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                  </div>
+                </form>
+            </field>
+    </record>
+    <!-- actions opening views on models -->
+
+    <record model="ir.actions.act_window" id="ts__development.action_window">
+      <field name="name">Development Tracking</field>
+      <field name="res_model">development.tracking</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+
+
+
+    <!-- Top menu item -->
+
+    <menuitem name="Development Tracking" id="ts__development.menu_root"/>
+
+    <!-- menu categories -->
+
+    <menuitem name="Development Tracking" id="ts__development.menu_1" parent="ts__development.menu_root"/>
+
+    <!-- actions -->
+
+    <menuitem name="Development Tracking" id="ts__development.menu_1_list" parent="ts__development.menu_1"
+              action="ts__development.action_window"/>
+
+
+  </data>
+</odoo>

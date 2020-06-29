@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<odoo>
+        <record id="structure_task_w_view_form" model="ir.ui.view">
+            <field name="name">structure.task.w.form</field>
+            <field name="model">structure.task.w</field>
+            <field name="arch" type="xml">
+                <form string="Create Task">
+                    <group class="oe_title">
+                        <field name="name"/>
+                        <field name="stage_id"/>
+                        <field name="url"/>
+
+                    </group>
+                    <footer>
+                        <button name="action_create_task_apply" string="Submit" type="object" class="btn btn-sm btn-primary"/>
+                        <button string="Cancel" class="btn btn-sm btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+ 
+        <record id="structure_task_wizard_action" model="ir.actions.act_window">
+            <field name="name">Create Task</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">structure.task.w</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="structure_task_w_view_form"/>
+            <field name="target">new</field>
+        </record>
+</odoo>

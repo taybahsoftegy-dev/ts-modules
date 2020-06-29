@@ -1,0 +1,150 @@
+<odoo>
+  <data>
+      <!-- Created new Form View for wizard-->
+    <record id="s_form_view_select_multi_product_wizard" model="ir.ui.view">
+        <field name="name">sr.form.view.select.multi.product.wizard</field>
+        <field name="model">s.multi.product</field>
+        <field name="arch" type="xml">
+            <form string="Select Multiple product">
+                <group>
+                    <field name="product_ids" nolabel="1">
+                        <tree>
+                            <field name="name"/>
+                        </tree>
+                    </field>
+                </group>
+                <footer>
+                    <button class="btn-primary" name="add_product" type="object" string="Apply"/>
+                    Or
+                    <button string="Cancel" class="oe_link" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+      <!-- Created new action for wizard-->
+    <record id="action_sale_select_multi_product_wizard" model="ir.actions.act_window">
+        <field name="name">Select Multiple Product</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">s.multi.product</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <record id="sale_view_order_form_inherit" model="ir.ui.view">
+            <field name="name">sale.order.form.inherit</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <header position="inside">
+                    <button name="%(action_sale_select_multi_product_wizard)d" type="action" class="btn-primary"
+                            attrs="{'invisible': [('state', '!=', 'draft')]}" string="Select More Product"/>
+                </header>
+                <xpath expr="//sheet//div//h1//field[@name='name']" position="replace">
+                    <field name="name"  readonly="0"/>
+                    <group colspan="4" col="5">
+                    <field name="display_price" string="Show Cost" />
+                    </group>
+
+
+
+
+                </xpath>
+                 <xpath expr="//sheet//group//group//field[@name='partner_id']" position="replace">
+                    <field name="partner_id"
+                     domain="[('customer_rank','=',1)]"
+                    />
+                </xpath>
+                <xpath  expr="//sheet//notebook//page[@name='order_lines']//field[@name='order_line']//tree//field[@name='product_uom_qty']"
+                      position="after"   >
+                         <field name="cost"  attrs="{'column_invisible': [('parent.display_price', '=',  False)]}"   />
+                        <field name="Profit"  attrs="{'column_invisible': [('parent.display_price', '=',  False)]}"   />
+                        <field name="discount"  attrs="{'column_invisible': [('parent.display_price', '=',  False)]}"   />
+                        <field name="rate" attrs="{'column_invisible': [('parent.display_price', '=',  False)]}"   />
+                </xpath>
+                <xpath expr="//sheet//notebook//page[@name='order_lines']//field[@name='order_line']//tree//field[@name='product_id']"
+                      position="before"  >
+                         <field name="check_box" nolabel="1"  attrs="{'column_invisible': [('parent.display_price', '=',  False)]}"  />
+
+                </xpath>
+                <xpath expr="//sheet//group//group//field[@name='payment_term_id']"
+                      position="after"  >
+                                <field name="discount" nolabel="1"  attrs="{'invisible': [('display_price', '=',  False)]}" />
+                                <button name="update_discount" type="object" class="btn-primary"
+                                 string="Update Discount" attrs="{'invisible': [('display_price', '=',  False)]}"/>
+
+                                <field name="profit" nolabel="1" attrs="{'invisible': [('display_price', '=',  False)]}" />
+                                <button name="update_profit" type="object" class="btn-primary"
+                                 string="Update Profit" attrs="{'invisible': [('display_price', '=',  False)]}"/>
+
+                                <field name="rate" nolabel="1" attrs="{'invisible': [('display_price', '=',  False)]}"/>
+                                <button name="update_rate" type="object" class="btn-primary"
+                                 string="Update Rate" attrs="{'invisible': [('display_price', '=',  False)]}"/>
+                    <br/>
+                    <div>
+                    <button name="select_lines" type="object" class="btn-primary"
+                                 string="select All Lines" attrs="{'invisible': [('display_price', '=',  False)]}"/>
+
+                    <button name="unselect_lines" type="object" class="btn-primary"
+                                 string="Unselect All Lines" attrs="{'invisible': [('display_price', '=',  False)]}"/>
+                     </div>
+                </xpath>
+            </field>
+      </record>
+    <!-- explicit list view definition -->
+<!--
+    <record model="ir.ui.view" id="ts__sales.list">
+      <field name="name">TS_Sales list</field>
+      <field name="model">ts__sales.ts__sales</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="value"/>
+          <field name="value2"/>
+        </tree>
+      </field>
+    </record>
+-->
+
+    <!-- actions opening views on models -->
+<!--
+    <record model="ir.actions.act_window" id="ts__sales.action_window">
+      <field name="name">TS_Sales window</field>
+      <field name="res_model">ts__sales.ts__sales</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+-->
+
+    <!-- server action to the one above -->
+<!--
+    <record model="ir.actions.server" id="ts__sales.action_server">
+      <field name="name">TS_Sales server</field>
+      <field name="model_id" ref="model_ts__sales_ts__sales"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": model._name,
+        }
+      </field>
+    </record>
+-->
+
+    <!-- Top menu item -->
+<!--
+    <menuitem name="TS_Sales" id="ts__sales.menu_root"/>
+-->
+    <!-- menu categories -->
+<!--
+    <menuitem name="Menu 1" id="ts__sales.menu_1" parent="ts__sales.menu_root"/>
+    <menuitem name="Menu 2" id="ts__sales.menu_2" parent="ts__sales.menu_root"/>
+-->
+    <!-- actions -->
+<!--
+    <menuitem name="List" id="ts__sales.menu_1_list" parent="ts__sales.menu_1"
+              action="ts__sales.action_window"/>
+    <menuitem name="Server to list" id="ts__sales" parent="ts__sales.menu_2"
+              action="ts__sales.action_server"/>
+-->
+  </data>
+</odoo>

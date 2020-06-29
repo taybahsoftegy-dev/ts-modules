@@ -1,0 +1,110 @@
+<odoo>
+  <data>
+      <!-- Created new Form View for wizard-->
+    <record id="p_form_view_select_multi_product_wizard" model="ir.ui.view">
+        <field name="name">sr.form.view.select.multi.product.wizard</field>
+        <field name="model">p.multi.product</field>
+        <field name="arch" type="xml">
+            <form string="Select Multiple product">
+                <group>
+                    <field name="product_ids" nolabel="1">
+                        <tree>
+                            <field name="name"/>
+                        </tree>
+                    </field>
+                </group>
+                <footer>
+                    <button class="btn-primary" name="add_product" type="object" string="Apply"/>
+                    Or
+                    <button string="Cancel" class="oe_link" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+      <!-- Created new action for wizard-->
+    <record id="action_purchase_select_multi_product_wizard" model="ir.actions.act_window">
+        <field name="name">Select Multiple Product</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">p.multi.product</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+    <record id="purchase_order_form_inherit" model="ir.ui.view">
+            <field name="name">purchase.order.form.inherit</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+                <header position="inside">
+                    <button name="%(action_purchase_select_multi_product_wizard)d" type="action" class="btn-primary"
+                            attrs="{'invisible': [('state', '!=', 'draft')]}" string="Select More Product"/>
+                </header>
+                <xpath expr="//sheet//div//h1//field[@name='name']" position="replace">
+                    <field name="name"  readonly="0"/>
+                </xpath>
+                 <xpath expr="//sheet//group//group//field[@name='partner_id']" position="replace">
+                    <field name="partner_id"
+
+                     domain="[('supplier_rank','=',1)]"
+                    />
+                </xpath>
+
+            </field>
+      </record>
+    <!-- explicit list view definition -->
+<!--
+    <record model="ir.ui.view" id="ts__purchase.list">
+      <field name="name">TS_Purchase list</field>
+      <field name="model">ts__purchase.ts__purchase</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="value"/>
+          <field name="value2"/>
+        </tree>
+      </field>
+    </record>
+-->
+
+    <!-- actions opening views on models -->
+<!--
+    <record model="ir.actions.act_window" id="ts__purchase.action_window">
+      <field name="name">TS_Purchase window</field>
+      <field name="res_model">ts__purchase.ts__purchase</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+-->
+
+    <!-- server action to the one above -->
+<!--
+    <record model="ir.actions.server" id="ts__purchase.action_server">
+      <field name="name">TS_Purchase server</field>
+      <field name="model_id" ref="model_ts__purchase_ts__purchase"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": model._name,
+        }
+      </field>
+    </record>
+-->
+
+    <!-- Top menu item -->
+<!--
+    <menuitem name="TS_Purchase" id="ts__purchase.menu_root"/>
+-->
+    <!-- menu categories -->
+<!--
+    <menuitem name="Menu 1" id="ts__purchase.menu_1" parent="ts__purchase.menu_root"/>
+    <menuitem name="Menu 2" id="ts__purchase.menu_2" parent="ts__purchase.menu_root"/>
+-->
+    <!-- actions -->
+<!--
+    <menuitem name="List" id="ts__purchase.menu_1_list" parent="ts__purchase.menu_1"
+              action="ts__purchase.action_window"/>
+    <menuitem name="Server to list" id="ts__purchase" parent="ts__purchase.menu_2"
+              action="ts__purchase.action_server"/>
+-->
+  </data>
+</odoo>

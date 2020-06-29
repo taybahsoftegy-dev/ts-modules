@@ -1,0 +1,73 @@
+<odoo>
+  <data>
+     <record id="hr_view_employee_form_inherit" model="ir.ui.view">
+            <field name="name">hr.employee.form.inherit</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+
+                 <xpath expr="//sheet//group//group//field[@name='parent_id']" position="after">
+                    <field name="emp_no"/>
+                    <field name="emp_name_ar"/>
+                </xpath>
+
+            </field>
+      </record>
+    <!-- explicit list view definition -->
+<!--
+    <record model="ir.ui.view" id="ts__employees.list">
+      <field name="name">TS_Employees list</field>
+      <field name="model">ts__employees.ts__employees</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="value"/>
+          <field name="value2"/>
+        </tree>
+      </field>
+    </record>
+-->
+
+    <!-- actions opening views on models -->
+<!--
+    <record model="ir.actions.act_window" id="ts__employees.action_window">
+      <field name="name">TS_Employees window</field>
+      <field name="res_model">ts__employees.ts__employees</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+-->
+
+    <!-- server action to the one above -->
+<!--
+    <record model="ir.actions.server" id="ts__employees.action_server">
+      <field name="name">TS_Employees server</field>
+      <field name="model_id" ref="model_ts__employees_ts__employees"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": model._name,
+        }
+      </field>
+    </record>
+-->
+
+    <!-- Top menu item -->
+<!--
+    <menuitem name="TS_Employees" id="ts__employees.menu_root"/>
+-->
+    <!-- menu categories -->
+<!--
+    <menuitem name="Menu 1" id="ts__employees.menu_1" parent="ts__employees.menu_root"/>
+    <menuitem name="Menu 2" id="ts__employees.menu_2" parent="ts__employees.menu_root"/>
+-->
+    <!-- actions -->
+<!--
+    <menuitem name="List" id="ts__employees.menu_1_list" parent="ts__employees.menu_1"
+              action="ts__employees.action_window"/>
+    <menuitem name="Server to list" id="ts__employees" parent="ts__employees.menu_2"
+              action="ts__employees.action_server"/>
+-->
+  </data>
+</odoo>

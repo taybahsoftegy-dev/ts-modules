@@ -1,0 +1,1025 @@
+<odoo>
+  <data>
+
+<!-- ##################################################################################################### -->
+      <!-- ######################### Start Configuration ############################## -->
+
+    <!-- employee inherit -->
+    <record id="view_hr_employee_form_inherit" model="ir.ui.view">
+            <field name="name">view.hr.employee.form.inherit</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='parent_id']" position="after">
+                    <field name="hr_work_class_id" string=" HR Work Class"/>
+                    <field name="main_salary" string="Basic Salary"/>
+                    <field name="Social_insurance_no"/>
+                    <field name="code" string="Code"/>
+                    <!-- Add your fields or attributes here -->
+                </xpath>
+            </field>
+    </record>
+    <!-- End Employee inherit-->
+
+    <!-- #### work class #### -->
+    <record id="hr_work_class_form" model="ir.ui.view">
+            <field name="name">hr.work.class.form</field>
+            <field name="model">hr.work.class</field>
+            <field name="arch" type="xml">
+                <form string="HR WORK CLASS">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name" string="Working Team Name"/>
+                            </group>
+                            <group>
+                                <field name="work_time_id" string="Working Time"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="rule_late_id" domain="[('rule_type_id', '=', '1')]" string="Late Rule"/>
+                            </group>
+                            <group>
+                                <field name="rule_early_exit_id" domain="[('rule_type_id', '=', '2')]" string="Early Exit Rule"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="no_checkin_id" domain="[('check_type_id', '=', '1')]" string="No Check in"/>
+                            </group>
+                            <group>
+                                <field name="no_checkout_id" domain="[('check_type_id', '=', '2')]" string="No Check Out"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="rule_overtime_id" domain="[('rule_type_id', '=', '3')]" string="OverTime Rule"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    <record model="ir.ui.view" id="hr_work_class_tree">
+      <field name="name">hr.work.class list</field>
+      <field name="model">hr.work.class</field>
+      <field name="arch" type="xml">
+        <tree>
+              <field name="name" string="Working Team Name"/>
+              <field name="work_time_id" string="Working Time"/>
+              <field name="rule_late_id" string="Late Rule"/>
+              <field name="rule_early_exit_id" string="Early Exit Rule"/>
+              <field name="rule_overtime_id" string="OverTime Rule"/>
+              <field name="no_checkin_id" string="No Check in"/>
+              <field name="no_checkout_id" string="No Check Out"/>
+        </tree>
+      </field>
+    </record>
+    <record model="ir.actions.act_window" id="test_module.action_hr_work_class">
+      <field name="name">hr.work.class window</field>
+      <field name="res_model">hr.work.class</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem name="HR Work Class" id="menu_hr_work_class" parent="hr.menu_human_resources_configuration"
+              action="test_module.action_hr_work_class"/>
+    <!-- #### End work class #### -->
+
+    <!-- #### Hr Working time #### -->
+    <record model="ir.ui.view" id="hr_work_time_form" >
+            <field name="name">hr.work.time.form</field>
+            <field name="model">hr.work.time</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                      <group>
+                        <notebook>
+                            <page string="Working Time">
+                              <group col="3">
+                                    <div colspan="1">Day</div>
+                                    <div colspan="1">From (h)</div>
+                                    <div colspan="1">To (h)</div>
+                                </group>
+                                <group col="3">
+                                    <div colspan="1">Sat</div>
+                                    <field name="sat_from" colspan="1" widget="float_time" nolabel="1"/>
+                                    <field name="sat_to" colspan="1" widget="float_time" nolabel="1"/>
+                                </group>
+                                <group col="3">
+                                    <div colspan="1">Sun</div>
+                                    <field name="sun_from" colspan="1" widget="float_time" nolabel="1"/>
+                                    <field name="sun_to" colspan="1" widget="float_time" nolabel="1"/>
+                                </group>
+                                <group col="3">
+                                    <div colspan="1">Mon</div>
+                                    <field name="mon_from" colspan="1" widget="float_time" nolabel="1"/>
+                                    <field name="mon_to" colspan="1" widget="float_time" nolabel="1"/>
+                                </group>
+                                <group col="3">
+                                    <div colspan="1">Tue</div>
+                                    <field name="tue_from" colspan="1" widget="float_time" nolabel="1"/>
+                                    <field name="tue_to" colspan="1" widget="float_time" nolabel="1"/>
+                                </group>
+                                <group col="3">
+                                    <div colspan="1">Wed</div>
+                                    <field name="wed_from" colspan="1" widget="float_time" nolabel="1"/>
+                                    <field name="wed_to" colspan="1" widget="float_time" nolabel="1"/>
+                                </group>
+                                <group col="3">
+                                    <div colspan="1">Thu</div>
+                                    <field name="thur_from" colspan="1" widget="float_time" nolabel="1"/>
+                                    <field name="thur_to" colspan="1" widget="float_time" nolabel="1"/>
+                                </group>
+                                <group col="3">
+                                    <div colspan="1">Fri</div>
+                                    <field name="fri_from" colspan="1" widget="float_time" nolabel="1"/>
+                                    <field name="fri_to" colspan="1" widget="float_time" nolabel="1"/>
+                                </group>
+                            </page>
+                        </notebook>
+                      </group>
+
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    <record model="ir.ui.view" id="hr_work_time_tree" >
+            <field name="name">view.hr.work.time.tree</field>
+            <field name="model">hr.work.time</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name" string="Working Time Name"/>
+                </tree>
+            </field>
+    </record>
+    <record model="ir.actions.act_window" id="test_module.action_hr_working_time">
+      <field name="name">hr.work.time window</field>
+      <field name="res_model">hr.work.time</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem name="HR Working Time" id="menu_hr_work_time"
+                  parent="hr.menu_human_resources_configuration" action="test_module.action_hr_working_time"/>
+    <!-- #### End working time #### -->
+
+    <!-- #### HR Rule #### -->
+    <record model="ir.ui.view" id="hr_rule_form" >
+            <field name="name">hr.rule.form</field>
+            <field name="model">hr.rule</field>
+            <field name="arch" type="xml">
+                <form string="HR Rule">
+                    <sheet>
+                        <group>
+                            <field name="name" string="Rule Name"/>
+                            <field name="rule_type_id" string="Type"/>
+                        </group>
+                        <notebook>
+                            <page string="Details">
+                                <group>
+                                    <field name="hr_rule_det_ids" nolabel="1">
+                                        <tree editable="bottom">
+                                            <field name="rule_min_from" string="From"/>
+                                            <field name="rule_min_to" string="To"/>
+                                            <field name="result_min" string="In ( min )"/>
+                                            <field name="result_day" string="In ( day )"/>
+                                        </tree>
+                                    </field>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    <record model="ir.ui.view" id="hr_rule_tree" >
+            <field name="name">hr.rule.tree</field>
+            <field name="model">hr.rule</field>
+            <field name="arch" type="xml">
+                <tree >
+                    <field name="name" string="Rule Name"/>
+                    <field name="rule_type_id" string="Type"/>
+                </tree>
+            </field>
+        </record>
+    <record model="ir.actions.act_window" id="test_module.action_hr_rule">
+      <field name="name">hr.rule window</field>
+      <field name="res_model">hr.rule</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem name="HR Rule" id="menu_hr_rule"  parent="hr.menu_human_resources_configuration"
+                  action="test_module.action_hr_rule"/>
+    <!-- #### End HR Rule #### -->
+
+    <!-- #### HR No Check #### -->
+    <record model="ir.ui.view" id="hr_no_check_form" >
+            <field name="name">hr.no.check.form</field>
+            <field name="model">hr.no.check</field>
+            <field name="arch" type="xml">
+                <form string="HR No Check">
+                    <sheet>
+                        <group>
+                            <field name="name" string="Rule Name"/>
+                            <field name="check_type_id" string="Type"/>
+                            <field name="result_day" string="In (Day)"/>
+                            <field name="result_hour" string="In (Hour)"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    <record model="ir.ui.view" id="hr_no_check_tree" >
+            <field name="name">hr.no.check.tree</field>
+            <field name="model">hr.no.check</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name" string="Rule Name"/>
+                    <field name="check_type_id" string="Type"/>
+                    <field name="result_day" string="In (Day)"/>
+                    <field name="result_hour" string="In (Hour)"/>
+                </tree>
+            </field>
+        </record>
+    <record model="ir.actions.act_window" id="test_module.action_hr_no_check">
+      <field name="name">hr.no.check window</field>
+      <field name="res_model">hr.no.check</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem name="HR No Check" id="menu_hr_no_check"  parent="hr.menu_human_resources_configuration"
+                  action="test_module.action_hr_no_check"/>
+    <!-- #### End HR No Check #### -->
+
+      <!-- ############################## End Configuration ########################### -->
+<!-- ######################################################################################################## -->
+
+
+
+<!-- ######################################################################################################### -->
+      <!-- ####################### Start Transaction ########################### -->
+
+        <!-- menu categories : Transaction In Hr -->
+        <menuitem name="Transaction" id="menu_hr_transaction_categ"  parent="hr.menu_hr_root"/>
+
+        <!-- #### Start HR HOLIDAY GEN #### -->
+        <record model="ir.ui.view" id="hr_holiday_gen_form" >
+            <field name="name">hr.holiday.gen.form</field>
+            <field name="model">hr.holiday.gen</field>
+            <field name="arch" type="xml">
+                <form string=" ">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                            </group>
+                            <group>
+                                <field name="from_date"/>
+                                <field name="to_date"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="hr_holiday_gen_tree" >
+            <field name="name">hr.holiday.gen.tree</field>
+            <field name="model">hr.holiday.gen</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="from_date"/>
+                    <field name="to_date"/>
+                </tree>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="test_module.action_hr_holiday_gen">
+          <field name="name">hr.holiday.gen window</field>
+          <field name="res_model">hr.holiday.gen</field>
+          <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem name="HR Holiday Gen" id="menu_hr_holiday_gen"  parent="menu_hr_transaction_categ"
+                  action="test_module.action_hr_holiday_gen"/>
+        <!-- #### End HR HOLIDAY GEN #### -->
+
+        <!-- #### Start HR MISSION #### -->
+        <record model="ir.ui.view" id="view_hr_mission_form" >
+            <field name="name">hr.mission.form</field>
+            <field name="model">hr.mission</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                            </group>
+                            <group>
+                                <field name="employee_id"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="from_date"/>
+                            </group>
+                            <group>
+                                <field name="to_date"/>
+                            </group>
+                        </group>
+
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="hr_mission_tree" >
+            <field name="name">hr.mission.tree</field>
+            <field name="model">hr.mission</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="employee_id"/>
+                    <field name="from_date"/>
+                    <field name="to_date"/>
+                </tree>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="test_module.action_hr_mission">
+          <field name="name">hr.mission window</field>
+          <field name="res_model">hr.mission</field>
+          <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem name="HR Mission" id="menu_hr_mission"  parent="menu_hr_transaction_categ"
+                  action="test_module.action_hr_mission"/>
+        <!-- #### End HR MISSION #### -->
+
+        <!-- #### Start Hr LATE PERMISSION #### -->
+        <record id="hr_late_permission_form" model="ir.ui.view">
+            <field name="name">hr.late.permission.form</field>
+            <field name="model">hr.late.permission</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="employee_id"/>
+                            </group>
+                            <group>
+                                <field name="permission_date"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="permission_type"/>
+                            </group>
+                            <group>
+                                <field name="late_type"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="duration" widget="float_time"/>
+                            </group>
+                            <group>
+
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="hr_late_permission_tree" >
+            <field name="name">hr.late.permission.tree</field>
+            <field name="model">hr.late.permission</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="employee_id"/>
+                    <field name="permission_date"/>
+                </tree>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="test_module.action_hr_late_permission">
+          <field name="name">hr.late.permission window</field>
+          <field name="res_model">hr.late.permission</field>
+          <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem name="HR Late Permission" id="menu_hr_late_permission"  parent="menu_hr_transaction_categ"
+                  action="test_module.action_hr_late_permission"/>
+        <!-- #### End Hr LATE PERMISSION #### -->
+
+        <!-- #### Start Hr Bonus &  Deduct #### -->
+        <record model="ir.ui.view" id="hr_bonus_deduct_form" >
+            <field name="name">hr.bonus.deduct.form</field>
+            <field name="model">hr.bonus.punish</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="employee_id"/>
+                            </group>
+                            <group>
+                                <field name="date"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="type"/>
+                            </group>
+                            <group>
+                                <field name="description"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="no_of_day" />
+                            </group>
+                            <group>
+
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="hr_bonus_deduct_tree" >
+            <field name="name">hr.bonus.deduct.tree</field>
+            <field name="model">hr.bonus.punish</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="employee_id"/>
+                    <field name="type"/>
+                    <field name="date"/>
+                </tree>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="test_module.action_hr_bonus_deduct">
+          <field name="name">hr.bonus.punish window</field>
+          <field name="res_model">hr.bonus.punish</field>
+          <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem name="HR Bonus And Deduct" id="menu_hr_bonus_deduct"  parent="menu_hr_transaction_categ"
+                  action="test_module.action_hr_bonus_deduct"/>
+        <!-- #### End Hr Bonus &  Deduct #### -->
+
+        <!-- #### Start Hr ِAllowances #### -->
+        <record model="ir.ui.view" id="hr_allowance_form" >
+            <field name="name">hr.allowance.form</field>
+            <field name="model">hr.allowance</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                        </group>
+
+                        <group>
+                            <group>
+                                <field name="value"/>
+                            </group>
+                            <group>
+                                <field name="description"/>
+                            </group>
+                        </group>
+
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="hr_allowance_tree" >
+            <field name="name">hr.allowance.tree</field>
+            <field name="model">hr.allowance</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="value"/>
+
+                </tree>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="test_module.action_hr_allowance">
+          <field name="name">hr.allowance window</field>
+          <field name="res_model">hr.allowance</field>
+          <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem name="HR Allowances" id="menu_hr_allowance"  parent="menu_hr_transaction_categ"
+                  action="test_module.action_hr_allowance"/>
+        <!-- #### End Hr ِAllowances #### -->
+
+        <!-- #### Start Hr ِAllowance employee #### -->
+        <record model="ir.ui.view" id="hr_allowance_employee_form" >
+            <field name="name">hr.allowance.employee.form</field>
+            <field name="model">hr.allowance.employee</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <sheet>
+
+                        <group>
+                            <group>
+                                <field name="employee_id"/>
+                            </group>
+                            <group>
+                                <field name="allowance_id"/>
+                            </group>
+                        </group>
+
+
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record  model="ir.ui.view" id="hr_allowance_employee_tree">
+            <field name="name">hr.allowance.employee.tree</field>
+            <field name="model">hr.allowance.employee</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="employee_id"/>
+                    <field name="allowance_id"/>
+
+                </tree>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="test_module.action_hr_allowance_employee">
+          <field name="name">hr.allowance.employee window</field>
+          <field name="res_model">hr.allowance.employee</field>
+          <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem name="HR Allowance Employee"  id="menu_hr_allowance_employee" parent="menu_hr_transaction_categ"
+                  action="test_module.action_hr_allowance_employee"/>
+        <!-- #### End Hr ِAllowance employee #### -->
+
+        <!-- #### Start Hr ِDeduct ####  -->
+        <record model="ir.ui.view" id="hr_deduct_form" >
+            <field name="name">hr.deduct.form</field>
+            <field name="model">hr.deduct</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                        </group>
+
+                        <group>
+                            <group>
+                                <field name="value"/>
+                            </group>
+                            <group>
+                                <field name="description"/>
+                            </group>
+                        </group>
+
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="hr_deduct_tree" >
+            <field name="name">hr.deduct.tree</field>
+            <field name="model">hr.deduct</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="value"/>
+
+                </tree>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="test_module.action_hr_deduct">
+          <field name="name">hr.deduct window</field>
+          <field name="res_model">hr.deduct</field>
+          <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem name="HR Deducts" id="menu_hr_deduct"  parent="menu_hr_transaction_categ"
+                  action="test_module.action_hr_deduct"/>
+        <!-- #### End Hr ِDeduct ####  -->
+
+        <!-- #### Start Hr ِdeduct employee #### -->
+        <record model="ir.ui.view" id="hr_deduct_employee_form">
+            <field name="name">hr.deduct.employee.form</field>
+            <field name="model">hr.deduct.employee</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <sheet>
+
+                        <group>
+                            <group>
+                                <field name="employee_id"/>
+                            </group>
+                            <group>
+                                <field name="deduct_id"/>
+                            </group>
+                        </group>
+
+
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="hr_deduct_employee_tree" >
+            <field name="name">hr.deduct.employee.tree</field>
+            <field name="model">hr.deduct.employee</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="employee_id"/>
+                    <field name="deduct_id"/>
+
+                </tree>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="test_module.action_hr_deduct_employee">
+          <field name="name">hr.deduct.employee window</field>
+          <field name="res_model">hr.deduct.employee</field>
+          <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem name="HR Deduct Employee" id="menu_hr_deduct_employee"  parent="menu_hr_transaction_categ"
+                  action="test_module.action_hr_deduct_employee"/>
+        <!-- #### End Hr ِdeduct employee #### -->
+
+        <!-- #### Start HR EMPLOYEE SHEET #### -->
+        <record model="ir.ui.view" id="hr_employee_sheet_form" >
+            <field name="name">hr.employee.sheet.form</field>
+            <field name="model">hr.employee.sheet</field>
+            <field name="arch" type="xml">
+                <form string=" ">
+                    <header>
+                        <field name="state_calc" widget="statusbar"/>
+                         <button name="action_CalcTime"
+                                     string="Calc TimeSheets"
+                                    type="object"  class="oe_highlight"  attrs="{'invisible': [('state_calc','!=', 'draft')]}"  />
+
+                  </header>
+                    <sheet>
+                        <group>
+                            <field name="employee"/>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="date_from"/>
+                            </group>
+                            <group>
+                                <field name="date_end"/>
+                            </group>
+                        </group>
+
+
+
+                        <notebook>
+                        <page string="Sheet">
+                            <group>
+                                <field name="hr_employee_sheet_item_id" nolabel="1" readonly="1">
+                                    <tree >
+                                        <field name="Day"/>
+                                        <field name="Date"/>
+                                        <field name="Status"/>
+                                        <field name="check_in"/>
+                                        <field name="late_punishment_min" sum="total(min)"/>
+                                        <field name="late_punishment_day" sum="total(day)"/>
+                                        <field name="check_out"/>
+                                        <field name="Exit_Early_punishment_min" sum="total(min)" />
+                                        <field name="Exit_Early_punishment_day" sum="total(day)"/>
+                                        <field name="over_time_min" sum="total(min)"/>
+                                        <field name="over_time_day" sum="total(day)"/>
+                                    </tree>
+                                </field>
+                            </group>
+                        </page>
+                        <page string="Details">
+                             <group>
+                                 <group>
+                                     <field name="total_bonus"/>
+                                     <field name="total_over"/>
+
+
+                                 </group>
+                                 <group>
+                                     <field name="total_punish"/>
+                                     <field name="total_late"/>
+                                     <field name="total_absent"/>
+
+                                 </group>
+                             </group>
+                        </page>
+                        <page string="Salary Account">
+                            <group>
+                                <field name="total_salary"/>
+                            </group>
+                             <group>
+                                 <group>
+                                     <field name="basic_salary"/>
+                                     <field name="total_allowances" string="Allowances Total"/>
+                                     <field name="total_bonus_in_salary"/>
+                                     <field name="total_over_in_salary"/>
+                                 </group>
+                                 <group>
+                                     <field name="total_absent_in_salary"/>
+                                     <field name="total_deduct" string="Deducts Total"/>
+                                     <field name="total_punish_in_salary"/>
+                                     <field name="total_late_in_salary"/>
+                                 </group>
+                             </group>
+
+                        </page>
+                    </notebook>
+                    </sheet>
+
+                </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="hr_employee_sheet_tree" >
+            <field name="name">hr.employee.sheet.tree</field>
+            <field name="model">hr.employee.sheet</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="employee"/>
+                    <field name="basic_salary"/>
+                    <field name="total_salary"/>
+                    <field name="date_from"/>
+                    <field name="date_end"/>
+                </tree>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="test_module.action_hr_employee">
+          <field name="name">hr.employee.sheet window</field>
+          <field name="res_model">hr.employee.sheet</field>
+          <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem name="Hr Employee Sheet" id="menu_hr_employee_sheet"  parent="menu_hr_transaction_categ"
+                  action="test_module.action_hr_employee"/>
+        <!-- #### End HR EMPLOYEE SHEET #### -->
+
+        <!-- #### Start HR EMPLOYEE SHEET CONFIRM #### -->
+        <record model="ir.ui.view" id="hr_employee_sheet_confirm_form" >
+            <field name="name">hr.employee.sheet.confirm.form</field>
+            <field name="model">hr.employee.timesheet.confirm</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <header>
+                        <button type="object" name="delete_sheets" string="Delete Sheets" class="oe_highlight" />
+                        <button type="object" name="upload_sheets" string="Upload Sheets" class="oe_highlight" />
+                        <button type="object" name="confirm_sheets" string="Confirm Sheets" class="oe_highlight" />
+                    </header>
+                    <sheet>
+                        <group>
+                            <field name="date_from"/>
+                            <field name="date_end"/>
+                        </group>
+                        <notebook>
+                            <page string="sheet">
+                                <group>
+                                    <field name="hr_employee_sheet_ids" nolabel="1">
+                                        <tree>
+                                            <field name="name"/>
+                                            <field name="basic_salary"/>
+                                            <field name="total_allowances"/>
+                                            <field name="total_bonus_in_salary"/>
+                                            <field name="total_over_in_salary"/>
+                                            <field name="total_deduct"/>
+                                            <field name="total_punish_in_salary"/>
+                                            <field name="total_late_in_salary"/>
+                                            <field name="total_salary"/>
+
+                                            <field name="check"/>
+                                        </tree>
+                                    </field>
+
+                                </group>
+
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_hr_employee_sheet_confirm_tree" >
+            <field name="name">hr.employee.sheet.confirm.tree</field>
+            <field name="model">hr.employee.timesheet.confirm</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="date_from"/>
+                    <field name="date_end"/>
+                </tree>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="test_module.action_hr_employee_sheet_confirm">
+          <field name="name">hr.employee.timesheet.confirm window</field>
+          <field name="res_model">hr.employee.timesheet.confirm</field>
+          <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem  name="Hr Employee Sheet Confirm" id="menu_hr_employee_sheet_confirm" parent="menu_hr_transaction_categ"
+                  action="test_module.action_hr_employee_sheet_confirm" />
+        <!-- #### End HR EMPLOYEE SHEET CONFIRM #### -->
+
+
+        <!-- #### Start Upload hr file from device to attendance #### -->
+        <record model="ir.ui.view" id="view_hr_upload_file_attendance_form" >
+            <field name="name">hr.upload.file.attendence.form</field>
+            <field name="model">hr.upload.file.attendence</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <header>
+                        <button name="confirm_attendance"
+                                     string="Confirm Attendance"
+                                    type="object"  class="oe_highlight"   />
+                    </header>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="file" filename="file_name" />
+                            <field name="file_name" invisible="1"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="hr_upload_file_attendance_tree" >
+            <field name="name">hr.upload.file.attendence</field>
+            <field name="model">hr.upload.file.attendence</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="test_module.action_hr_upload_file_attendance">
+          <field name="name">hr.upload.file.attendence window</field>
+          <field name="res_model">hr.upload.file.attendence</field>
+          <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem name="HR Upload File Attendance" id="menu_hr_upload_file_attendance"  parent="menu_hr_transaction_categ"
+                  action="test_module.action_hr_upload_file_attendance"/>
+        <!-- #### End Upload hr file from device to attendance #### -->
+        <!-- #### Start assign workclass and salary for many of employees in Class Employee #### -->
+        <record model="ir.ui.view" id="hr_workclass_employee_tree" >
+            <field name="name">hr work class employee</field>
+            <field name="model">hr.workclass.employee</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="hr_work_class_id"/>
+                </tree>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="hr_assign_work_class_form" >
+            <field name="name">hr assign work class</field>
+            <field name="model">hr.workclass.employee</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <header>
+                        <button name="action_assign"
+                             string="Assign"
+                            type="object"  class="oe_highlight"/>
+                         <button name="action_upload_employee"
+                             string="Upload Employee"
+                            type="object"  class="oe_highlight"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="hr_work_class_id"/>
+                            <field name="main_salary" string="Basic Salary"/>
+                            <field name="account_id"/>
+                        </group>
+
+                        <notebook>
+                            <page string="Employees">
+                                 <group>
+                                      <field name="employee_ids" nolabel="1">
+                                                    <tree editable="bottom">
+                                                        <field name="employee_id" string="employee"/>
+                                                        <field name="check"/>
+                                                    </tree>
+                                      </field>
+                                 </group>
+                            </page>
+                             <page string="Leaves">
+                                 <group>
+                                      <field name="leaves_ids" nolabel="1">
+                                                    <tree editable="bottom">
+                                                        <field name="leave" />
+                                                        <field name="value"/>
+                                                    </tree>
+                                      </field>
+                                 </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="test_module.action_hr_assign_work_class">
+          <field name="name">hr.workclass.employee window</field>
+          <field name="res_model">hr.workclass.employee</field>
+          <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem name="Hr class Employees" id="menu_hr_assign_work_class"  parent="hr.menu_human_resources_configuration"
+                  action="test_module.action_hr_assign_work_class" />
+
+        <!-- #### End assign workclass and salary for many of employees in Class Employee #### -->
+        <!-- #### Start assign Holiday for class employee #### -->
+      <record model="ir.ui.view" id="hr_holiday_class_employee_form" >
+            <field name="name">hr.holiday.class.employee.form</field>
+            <field name="model">hr.holiday.class.employee</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <header>
+                        <button name="action_assign"
+                             string="Assign"
+                            type="object"  class="oe_highlight"/>
+                    </header>
+                    <sheet>
+                        <group>
+                             <field name="employee_class_id"/>
+                             <field name="year"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+      <record model="ir.ui.view" id="hr_holiday_class_employee_tree" >
+            <field name="name">view.hr.holiday.class.employee.tree</field>
+            <field name="model">hr.holiday.class.employee</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="employee_class_id"/>
+                    <field name="year"/>
+                </tree>
+            </field>
+        </record>
+       <record model="ir.actions.act_window" id="test_module.action_hr_holiday_class_employee">
+          <field name="name">hr.holiday.class.employee window</field>
+          <field name="res_model">hr.holiday.class.employee</field>
+          <field name="view_mode">tree,form</field>
+        </record>
+      <menuitem name="Hr Holiday Class Employee" id="menu_assign_holiday_class_employee"  parent="hr.menu_human_resources_configuration"
+                  action="test_module.action_hr_holiday_class_employee"/>
+
+        <!-- #### End assign Holiday for class employee #### -->
+      <!-- ####################### End Transaction ############################# -->
+
+
+
+
+
+
+    <!-- This Menu Item Must have a parent -->
+    <!-- explicit list view definition -->
+
+    <record model="ir.ui.view" id="test_module.list">
+      <field name="name">test_module list</field>
+      <field name="model">test_module.test_module</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="value"/>
+          <field name="value2"/>
+        </tree>
+      </field>
+    </record>
+
+
+    <!-- actions opening views on models -->
+
+    <record model="ir.actions.act_window" id="test_module.action_window">
+      <field name="name">test_module window</field>
+      <field name="res_model">test_module.test_module</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <!-- server action to the one above -->
+
+    <record model="ir.actions.server" id="test_module.action_server">
+      <field name="name">test_module server</field>
+      <field name="model_id" ref="model_test_module_test_module"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": model._name,
+        }
+      </field>
+    </record>
+
+
+    <!-- Top menu item -->
+
+    <menuitem name="test_module" id="test_module.menu_root"/>
+
+    <!-- menu categories -->
+
+    <menuitem name="Menu 1" id="test_module.menu_1" parent="test_module.menu_root"/>
+    <menuitem name="Menu 2" id="test_module.menu_2" parent="test_module.menu_root"/>
+
+    <!-- actions -->
+
+    <menuitem name="List" id="test_module.menu_1_list" parent="test_module.menu_1"
+              action="test_module.action_window"/>
+    <menuitem name="Server to list" id="test_module" parent="test_module.menu_2"
+              action="test_module.action_server"/>
+
+  </data>
+</odoo>

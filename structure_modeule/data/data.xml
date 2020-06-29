@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+<!--        <record id="groups_technical_office" model="res.groups">-->
+<!--            <field name="name">المكتب الفني</field>-->
+<!--            <field name="is_portal">True</field>-->
+<!--            <field name="share">True</field>-->
+
+
+<!--        </record>-->
+<!--        <record id="groups_technical_manager" model="res.groups">-->
+<!--            <field name="name">مدير المكتب الفني </field>-->
+<!--            <field name="is_portal">True</field>-->
+<!--            <field name="share">True</field>-->
+<!--        </record>-->
+<!--        <record id="groups_technical_admin" model="res.groups">-->
+<!--            <field name="name">رئيس المكتب الفني </field>-->
+<!--            <field name="is_portal">True</field>-->
+<!--            <field name="share">True</field>-->
+<!--        </record>-->
+
+<!--         <record id="groups_sales_office" model="res.groups">-->
+<!--            <field name="name">المبيعات</field>-->
+<!--            <field name="is_portal">True</field>-->
+<!--            <field name="share">True</field>-->
+<!--        </record>-->
+<!--         <record id="groups_sales__manager" model="res.groups">-->
+<!--            <field name="name">  مدير المبيعات </field>-->
+<!--            <field name="is_portal">True</field>-->
+<!--            <field name="share">True</field>-->
+<!--        </record>-->
+<!--        <record id="groups_sales_admin" model="res.groups">-->
+<!--            <field name="name">رئيس المبيعات </field>-->
+<!--            <field name="is_portal">True</field>-->
+<!--            <field name="share">True</field>-->
+<!--        </record>-->
+    </data>
+</odoo>

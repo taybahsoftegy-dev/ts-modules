@@ -1,0 +1,884 @@
+<odoo>
+  <data>
+
+    <!-- this action is called when press on create task from any form -->
+       <record id="Create_task_from_any_form_action" model="ir.actions.act_window">
+            <field name="name">Create Task</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">project.task</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="project.view_task_form2"/>
+            <field name="target">new</field>
+        </record>
+
+    <!-- This Menu Item will appear in the Upper bar, That's why It needs NO parent or action -->
+    <menuitem id="menu_Structure_root" name="TaibahSoft" sequence="49"/>
+    <!-- This Menu Item Must have a parent -->
+    <menuitem id="menu_structure_categ" name="Contract" parent="menu_Structure_root" sequence="1"/>
+    <!-- This Menu Item must have a parent and an action -->
+        <record id="view_structure_general_info_form" model="ir.ui.view">
+      <field name="name">view.structure.general.info.form</field>
+      <field name="model">structure.generalinfo</field>
+      <field name="arch" type="xml">
+        <form>
+
+          <header>
+
+                  <button name="%(structure_task_wizard_action)d"  string="Create Task"
+                                type="action" class="oe_highlight"  />
+
+
+              <field name="state" widget="statusbar"/>
+            <!--  <div groups="structure_modeule.groups_sales_office" >-->
+                  <button name="Contract_perform_confirm" states="draft" type="object" string="Confirm" class="oe_highlight"   />
+
+             <!-- </div>-->
+             <!-- <div groups="structure_modeule.groups_sales__manager">-->
+                  <button name="Contract_perform_done" states="confirmed" type="object" string="Confirm" class="oe_highlight"  />
+              <!--</div>-->
+              <!--<div groups="structure_modeule.groups_sales_admin">-->
+                  <button name="Contract_perform_final" states="done" type="object" string="Confirm" class="oe_highlight"  />
+              <!--</div>-->
+          </header>
+
+          <sheet class="text-center">
+
+
+               <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+
+               </div>
+              <group>
+                  <group>
+                        <field name="project_id"   />
+                        <newline/>
+                        <field name="works" />
+                        <newline/>
+                        <field name="inDate" />
+                        <newline/>
+
+                  </group>
+                  <group>
+                      <field name="elmalek" domain="[('is_company', '=', True)]"/>
+                      <newline/>
+                      <field name="mokayel" />
+                      <newline/>
+                       <newline/>
+                       <newline/>
+                       <field name="modet" />
+                       <field name="gehatt" />
+                       <newline/>
+
+                  </group>
+
+
+              </group>
+               <newline/>
+               <newline/>
+              <notebook>
+                  <page string="المالك">
+                     <group>
+                         <field name="merfakresomat" />
+                         <newline/>
+                     </group>
+                      <group>
+                            <field name="merfak" />
+                              <newline/>
+                            <field name="menband" />
+                              <newline/>
+                            <field name="leband" />
+                              <newline/>
+                      </group>
+                  </page>
+                  <page string="الموقع">
+
+                      <group>
+                         <field name="tareekhestlaam" />
+                          <newline/>
+                      </group>
+                  </page>
+                  <page string="الماليات">
+                          <group>
+                            <field name="gomlaatCem" />
+                              <newline/>
+                          </group>
+                          <newline/>
+                          <group>
+                            <field name="gomlaatalaam" />
+                              <newline/>
+                            <field name="mogabrak1" />
+                              <newline/>
+                              <field name="mogabrak2" />
+                              <newline/>
+                              <field name="mogabrak3" />
+                              <newline/>
+                            <field name="bank" />
+                              <newline/>
+                            <field name="faraa" />
+                              <newline/>
+                            <field name="date_mogub1" />
+                              <newline/>
+                              <field name="date_mogub2" />
+                              <newline/>
+                          </group>
+                          <newline/>
+                          <group>
+                            <field name="dagha1" />
+                              <newline/>
+                            <field name="damgh2" />
+                              <newline/>
+                            <field name="damgh3" />
+                              <newline/>
+                          </group>
+                  </page>
+                  <page string="بيانات أخري " attrs="{'invisible':[('state','=','draft')]}" >
+
+
+                      <group>
+                           <field name="dateGM"/>
+                      </group>
+                      <group>
+                           <field name="DateGF"/>
+                      </group>
+                      <group>
+                           <field name="DateTL"/>
+                      </group>
+                      <group>
+                          <field name="rakamalataa"/>
+                      </group>
+
+                  </page>
+
+                  <page string="مقايسة المالك">
+                      <group>
+                          <field name="mokaysa_works" string="مقايسة المالك">
+                              <tree string="Mokaysa of works" editable="bottom">
+                                  <field name="nband"/>
+                                  <field name="name"/>
+                                  <field name="product_uom"/>
+                                   <field name="product_qty"/>
+                                  <field name="price_unit"/>
+                                  <field name="price_subtotal"/>
+                              </tree>
+
+                          </field>
+                          <group class="oe_subtotal_footer oe_right" colspan="2" >
+                              <div class="oe_subtotal_footer_separator oe_inline o_td_label">
+                                    <label for="amount_total"/>
+                               </div>
+                              <field name="amount_total" nolabel="1" class="oe_subtotal_footer_separator" />
+
+                          </group>
+                      </group>
+
+                  </page>
+
+              </notebook>
+
+
+              <newline/>
+
+              <newline/>
+              <newline/>
+
+
+
+
+
+          </sheet>
+
+           <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="message_ids" widget="mail_thread"/>
+           </div>
+        </form>
+      </field>
+    </record>
+      <record id="view_structure_general_info_tree" model="ir.ui.view">
+          <field name="name">view.structure.generalinfo.tree</field>
+          <field name="model">structure.generalinfo</field>
+          <field name="arch" type="xml">
+              <tree>
+                  <field name="name"/>
+                   <field name="project_id" />
+                <field name="works" />
+                <field name="inDate" />
+
+
+              </tree>
+          </field>
+      </record>
+    <record id="action_structure_general_info" model="ir.actions.act_window">
+      <field name="name">Contract</field>
+      <field name="res_model">structure.generalinfo</field>
+      <field name="view_mode">tree,form</field>
+
+    </record>
+      <record model="ir.actions.act_window.view" id="action_structure_general_info_tree">
+             <field name="sequence" eval="1"/>
+             <field name="view_mode">tree</field>
+             <field name="view_id" ref="view_structure_general_info_tree"/>
+             <field name="act_window_id" ref="action_structure_general_info"/>
+      </record>
+      <record model="ir.actions.act_window.view" id="action_structure_general_info_form">
+             <field name="sequence" eval="2"/>
+             <field name="view_mode">form</field>
+             <field name="view_id" ref="view_structure_general_info_form"/>
+             <field name="act_window_id" ref="action_structure_general_info"/>
+        </record>
+
+
+    <menuitem id="menu_generalinfo_action" name="Contract" parent="menu_structure_categ" action="action_structure_general_info" sequence="1"/>
+
+
+
+       <!-- create menu item and view and tree and action for Recipy -->
+     <record id="view_mokaysa_tree" model="ir.ui.view">
+          <field name="name">view.structure.generalinfo.tree</field>
+          <field name="model">structure.generalinfo</field>
+          <field name="arch" type="xml">
+              <tree >
+                  <field name="name"/>
+                   <field name="project_id" />
+                <field name="works" />
+                <field name="inDate" />
+
+
+              </tree>
+          </field>
+      </record>
+     <record id="view_mokaysa_form" model="ir.ui.view">
+      <field name="name">view.mokaysa.form</field>
+      <field name="model">structure.generalinfo</field>
+      <field name="arch" type="xml">
+
+        <form>
+           <header>
+               <button name="%(Create_task_from_any_form_action)d"  string="Create Task"
+                                type="action" class="oe_highlight"/>
+              <field name="recipy_State" widget="statusbar"/>
+            <!--   <div groups="structure_modeule.groups_technical_office"> -->
+                   <button name="recipy_perform_confirmed" attrs="{'invisible': [('recipy_State','!=', 'recipy_draft')]}"  type="object" string="Confirm" class="oe_highlight" />
+
+             <!--  </div> -->
+             <!-- <div groups="structure_modeule.groups_technical_manager"> -->
+                  <button name="recipy_perform_done" attrs="{'invisible': [('recipy_State','!=', 'recipy_confirmed')]}"  type="object" string="Confirm" class="oe_highlight" />
+              <!-- </div> -->
+               <!--<div groups="structure_modeule.groups_technical_admin">-->
+                   <button name="recipy_perform_final" attrs="{'invisible': [('recipy_State','!=', 'recipy_done')]}"  recipy_State="recipy_done" type="object" string="Confirm" class="oe_highlight" />
+               <!--</div>-->
+
+          </header>
+          <sheet class="text-center">
+
+
+               <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+
+               </div>
+              <div>
+                  <h3>
+                             <field name="project_id"   readonly="1" />
+                        </h3>
+              </div>
+
+              <notebook>
+
+                   <page string="مقايسة المشروع">
+                      <group>
+                          <field name="mokaysa_works_Project" string="مقايسة المشروع">
+                              <tree editable="bottom">
+                                  <field name="nband"/>
+                                  <field name="task_name"/>
+                                  <field name="stage_id"/>
+                                  <field name="product_id"/>
+                                  <field name="name"/>
+                                  <field name="product_uom"/>
+                                   <field name="product_qty"/>
+                                  <field name="price_unit"/>
+                                  <field name="price_subtotal"/>
+                              </tree>
+
+                          </field>
+                          <group class="oe_subtotal_footer oe_right" colspan="2" >
+                              <div class="oe_subtotal_footer_separator oe_inline o_td_label">
+                                    <label for="amount_total_project"/>
+                               </div>
+                              <field name="amount_total_project" nolabel="1" class="oe_subtotal_footer_separator" />
+
+                          </group>
+                      </group>
+
+                  </page>
+              </notebook>
+
+
+              <newline/>
+
+              <newline/>
+              <newline/>
+
+
+
+
+
+          </sheet>
+          <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="message_ids" widget="mail_thread"/>
+           </div>
+        </form>
+      </field>
+    </record>
+      <record id="action_Mokaysa_info" model="ir.actions.act_window">
+      <field name="name">Recipy</field>
+      <field name="res_model">structure.generalinfo</field>
+       <field name="view_mode">tree,form</field>
+       <field name="domain">[('state', '=', 'final')]</field>
+    </record>
+      <record model="ir.actions.act_window.view" id="action_Mokaysa_info_tree">
+             <field name="sequence" eval="1"/>
+             <field name="view_mode">tree</field>
+             <field name="view_id" ref="view_mokaysa_tree"/>
+             <field name="act_window_id" ref="action_Mokaysa_info"/>
+      </record>
+      <record model="ir.actions.act_window.view" id="action_Mokaysa_info_form">
+             <field name="sequence" eval="2"/>
+             <field name="view_mode">form</field>
+             <field name="view_id" ref="view_mokaysa_form"/>
+             <field name="act_window_id" ref="action_Mokaysa_info"/>
+        </record>
+      <menuitem id="menu_mokaysa_of_project_action" name="مقايسة المشروع" parent="menu_structure_categ" action="action_Mokaysa_info" sequence="2"/>
+
+       <!-- mostakhlas of elmalek   -->
+       <record id="view_mostakhlas_tree" model="ir.ui.view">
+          <field name="name">view.structure.generalinfo.tree</field>
+          <field name="model">structure.mostakhlas.elmalek</field>
+          <field name="arch" type="xml">
+              <tree>
+                  <field name="name"/>
+                   <field name="contract_id" />
+                <field name="band_of_mokaysa" />
+
+
+
+              </tree>
+          </field>
+      </record>
+      <record id="view_mostakhlas_form" model="ir.ui.view">
+      <field name="name">view.mostakhlas.form</field>
+      <field name="model">structure.mostakhlas.elmalek</field>
+      <field name="arch" type="xml">
+
+        <form>
+           <header>
+
+                   <button  name="create_invoice"  string="Create Invoice"
+                               type="object" class="oe_highlight"  attrs="{'invisible': [('invoice_id', '!=', False)]}" />
+
+
+          </header>
+          <sheet class="text-center">
+
+              <group>
+                   <field name="name"/>
+                   <field name="contract_id" />
+                   <field name="invoice_id" readonly="1"/>
+
+              </group>
+              <group>
+                  <field name="start_date" string="من تاريخ"/>
+                  <field name="end_date" string="الي تاريخ"/>
+              </group>
+
+
+
+
+              <notebook>
+
+                   <page string="مستخلص المالك">
+                      <group>
+                          <field name="Mostaklas_item"  nolabel="1">
+                              <tree string="Mokaysa of project" editable="bottom">
+                                  <field name="nband"/>
+                                  <field name="name"  />
+                                  <field name="product_qty"/>
+                                  <field name="price_unit"/>
+                                  <field name="product_uom"/>
+                                  <field name="previous_work"/>
+                                   <field name="inside_work"/>
+                                  <field name="total_work"/>
+                                  <field name="isgary"/>
+                                  <field name="price_subtotal"/>
+
+                                  <field name="note"/>
+
+                              </tree>
+
+                          </field>
+
+                          <group class="oe_subtotal_footer oe_right" colspan="2" >
+                              <div class="oe_subtotal_footer_separator oe_inline o_td_label">
+                                    <label for="amount_total_mostakhlas_elmalek"/>
+                               </div>
+                              <field name="amount_total_mostakhlas_elmalek" nolabel="1" class="oe_subtotal_footer_separator" />
+                              <div class="oe_subtotal_footer_separator oe_inline o_td_label">
+                                    <label for="istektak_or_book2"/>
+                               </div>
+                              <field name="istektak_or_book2" readonly="1" nolabel="1" class="oe_subtotal_footer_separator" />
+                              <div class="oe_subtotal_footer_separator oe_inline o_td_label">
+                                    <label for="total_after_istektak"/>
+                               </div>
+                              <field name="total_after_istektak" readonly="1" nolabel="1" class="oe_subtotal_footer_separator" />
+
+                          </group>
+
+
+                      </group>
+
+                  </page>
+                  <page string="الاستقطاع والحجز">
+
+                       <field name="istektak_or_book_item"  nolabel="1">
+                              <tree string="الاستقطاع والحجز" editable="bottom">
+                                  <field name="name"/>
+                                  <field name="istektak_or_book"/>
+                              </tree>
+                       </field>
+                       <div class="oe_subtotal_footer_separator oe_inline o_td_label">
+                                    <label for="istektak_or_book"/>
+                       </div>
+                      <field name="istektak_or_book" readonly="1" nolabel="1" class="oe_subtotal_footer_separator" />
+
+
+                  </page>
+              </notebook>
+
+
+              <newline/>
+
+              <newline/>
+              <newline/>
+
+
+
+
+
+          </sheet>
+
+        </form>
+      </field>
+    </record>
+      <record id="action_mostakhlas_info" model="ir.actions.act_window">
+      <field name="name">مستخلص المالك</field>
+          <field name="res_model">structure.mostakhlas.elmalek</field>
+       <field name="view_mode">tree,form</field>
+
+    </record>
+      <record model="ir.actions.act_window.view" id="action_mostakhlas_info_tree">
+             <field name="sequence" eval="1"/>
+             <field name="view_mode">tree</field>
+             <field name="view_id" ref="view_mostakhlas_tree"/>
+             <field name="act_window_id" ref="action_mostakhlas_info"/>
+      </record>
+      <record model="ir.actions.act_window.view" id="action__info_form">
+             <field name="sequence" eval="2"/>
+             <field name="view_mode">form</field>
+             <field name="view_id" ref="view_mostakhlas_form"/>
+             <field name="act_window_id" ref="action_mostakhlas_info"/>
+        </record>
+      <menuitem id="menu_mostaklas_of_elmalek_action" name="مستخلص المالك" parent="menu_structure_categ" action="action_mostakhlas_info" sequence="3"/>
+
+      <!-- This Menu Item must have a parent and an action -->
+      <!-- Inherit Form View to Modify it -->
+      <!-- Inherit Form View to Modify it -->
+      <record id="account_invoice_form_inherit" model="ir.ui.view">
+          <field name="name">account.invoice.form.inherit</field>
+          <field name="model">account.move</field>
+          <field name="inherit_id" ref="account.view_move_form"/>
+          <field name="arch" type="xml">
+              <field name="partner_id" position="after">
+                 <field name="is_mostaklas" string="is a Extract"/>
+                  <field name="mostaklas_item" string="المستخلص" readonly="1"/>
+              </field>
+          </field>
+      </record>
+       <record id="action_invoice_tree1_mostaklas" model="ir.actions.act_window">
+            <field name="name">فواتير المستخلصات</field>
+            <field name="res_model">account.move</field>
+            <field name="view_mode">tree,form</field>
+
+            <field name="domain">[('is_mostaklas','=','True' )]</field>
+            <field name="context">{'type':'out_invoice', 'journal_type': 'sale','is_mostaklas':'True'}</field>
+        </record>
+      <record model="ir.actions.act_window.view" id="action_mostakhlas_invoice_tree">
+             <field name="sequence" eval="1"/>
+             <field name="view_mode">tree</field>
+             <field name="view_id" ref="account.view_invoice_tree"/>
+             <field name="act_window_id" ref="action_invoice_tree1_mostaklas"/>
+      </record>
+       <record model="ir.actions.act_window.view" id="action_mostaklas_invoice_info_form">
+             <field name="sequence" eval="2"/>
+             <field name="view_mode">form</field>
+             <field name="view_id" ref="account_invoice_form_inherit"/>
+             <field name="act_window_id" ref="action_invoice_tree1_mostaklas"/>
+        </record>
+
+      <menuitem id="menu_invoice_mostaklas_action" name="فواتير المستخلصات" parent="menu_structure_categ" action="action_invoice_tree1_mostaklas" sequence="4"/>
+
+
+        <!-- mostakhlas of baten   -->
+      <record id="view_mostakhlas_baten_tree" model="ir.ui.view">
+          <field name="name">view.structure.generalinfo.tree</field>
+          <field name="model">structure.mostakhlas.baten</field>
+          <field name="arch" type="xml">
+              <tree>
+                  <field name="name"/>
+                   <field name="contract_id" />
+                <field name="band_of_mokaysa" />
+              </tree>
+          </field>
+      </record>
+     <record id="view_mostakhlas_baten_form" model="ir.ui.view">
+      <field name="name">view.mostakhlas.baten.form</field>
+      <field name="model">structure.mostakhlas.baten</field>
+      <field name="arch" type="xml">
+
+        <form>
+           <header>
+
+                   <button  name="create_invoice"  string="Create Invoice"
+                               type="object" class="oe_highlight"  attrs="{'invisible': [('invoice_id', '!=', False)]}" />
+
+          </header>
+          <sheet class="text-center">
+
+              <group>
+                   <field name="name"/>
+                   <field name="contract_id" />
+                   <field name="sub_contract" domain="[('supplier_rank', '=', 1)]"/>
+                   <field name="invoice_id" readonly="1"/>
+
+              </group>
+              <group>
+                  <field name="start_date" string="من تاريخ"/>
+                  <field name="end_date" string="الي تاريخ"/>
+              </group>
+
+
+
+
+              <notebook>
+
+                   <page string="مستخلص مقاول الباطن">
+                      <group>
+                          <field name="Mostaklas_item"  nolabel="1">
+                              <tree string="Mokaysa of project" editable="bottom">
+                                  <field name="nband"/>
+                                  <field name="name"  />
+                                  <field name="product_qty"/>
+                                  <field name="price_unit"/>
+                                  <field name="product_uom"/>
+                                  <field name="previous_work"/>
+                                   <field name="inside_work"/>
+                                  <field name="total_work"/>
+
+                                  <field name="price_subtotal"/>
+
+                                  <field name="note"/>
+
+                              </tree>
+
+                          </field>
+
+                          <group class="oe_subtotal_footer oe_right" colspan="2" >
+                              <div class="oe_subtotal_footer_separator oe_inline o_td_label">
+                                    <label for="amount_total_mostakhlas_elmalek"/>
+                               </div>
+                              <field name="amount_total_mostakhlas_elmalek" nolabel="1" class="oe_subtotal_footer_separator" />
+                              <div class="oe_subtotal_footer_separator oe_inline o_td_label">
+                                    <label for="istektak_or_book2"/>
+                               </div>
+                              <field name="istektak_or_book2" readonly="1" nolabel="1" class="oe_subtotal_footer_separator" />
+                              <div class="oe_subtotal_footer_separator oe_inline o_td_label">
+                                    <label for="total_after_istektak"/>
+                               </div>
+                              <field name="total_after_istektak" readonly="1" nolabel="1" class="oe_subtotal_footer_separator" />
+
+                          </group>
+
+
+                      </group>
+
+                  </page>
+                  <page string="الاستقطاع والحجز">
+
+                       <field name="istektak_or_book_item"  nolabel="1">
+                              <tree string="الاستقطاع والحجز" editable="bottom">
+                                  <field name="name"/>
+                                  <field name="istektak_or_book"/>
+                              </tree>
+                       </field>
+                       <div class="oe_subtotal_footer_separator oe_inline o_td_label">
+                                    <label for="istektak_or_book"/>
+                       </div>
+                      <field name="istektak_or_book" readonly="1" nolabel="1" class="oe_subtotal_footer_separator" />
+
+
+                  </page>
+              </notebook>
+
+
+              <newline/>
+
+              <newline/>
+              <newline/>
+
+
+
+
+
+          </sheet>
+
+        </form>
+      </field>
+    </record>
+      <record id="action_mostakhlas_baten_info" model="ir.actions.act_window">
+      <field name="name">مستخلص مقاول الباطن</field>
+      <field name="res_model">structure.mostakhlas.baten</field>
+       <field name="view_mode">tree,form</field>
+      <!-- <field name="domain">[('state', '=', 'final')]</field> -->
+    </record>
+      <record model="ir.actions.act_window.view" id="action_mostakhlas_baten_info_tree">
+             <field name="sequence" eval="1"/>
+             <field name="view_mode">tree</field>
+             <field name="view_id" ref="view_mostakhlas_baten_tree"/>
+             <field name="act_window_id" ref="action_mostakhlas_baten_info"/>
+      </record>
+      <record model="ir.actions.act_window.view" id="action__info_form">
+             <field name="sequence" eval="2"/>
+             <field name="view_mode">form</field>
+             <field name="view_id" ref="view_mostakhlas_baten_form"/>
+             <field name="act_window_id" ref="action_mostakhlas_baten_info"/>
+        </record>
+      <menuitem id="menu_mostaklas_of_baten_action" name="مستخلص مقاول الباطن" parent="menu_structure_categ" action="action_mostakhlas_baten_info" sequence="5"/>
+
+
+
+      <record id="account_invoice_baten_form_inherit" model="ir.ui.view">
+          <field name="name">account.invoice.form.inherit</field>
+          <field name="model">account.move</field>
+          <field name="inherit_id" ref="account.view_move_form"/>
+          <field name="arch" type="xml">
+              <field name="partner_id" position="after">
+
+                  <field name="is_mostaklas_baten" string="مقاول باطن" readonly="1"/>
+                  <field name="mostaklas_baten" readonly="1"/>
+              </field>
+          </field>
+      </record>
+       <record id="action_invoice_tree1_mostaklas_baten" model="ir.actions.act_window">
+            <field name="name">فواتير مقاول الباظن</field>
+            <field name="res_model">account.move</field>
+            <field name="view_mode">tree,form</field>
+
+            <field name="domain">[('is_mostaklas_baten','=','True' )]</field>
+            <field name="context">{'default_type': 'in_invoice', 'type': 'in_invoice', 'journal_type': 'purchase','is_mostaklas_baten':'True'}</field>
+        </record>
+        <record model="ir.actions.act_window.view" id="action_mostakhlas_baten_invoice_tree">
+             <field name="sequence" eval="1"/>
+             <field name="view_mode">tree</field>
+             <field name="view_id" ref="account.view_invoice_tree"/>
+             <field name="act_window_id" ref="action_invoice_tree1_mostaklas_baten"/>
+      </record>
+       <record model="ir.actions.act_window.view" id="action_mostaklas_baten_invoice_info_form">
+             <field name="sequence" eval="2"/>
+             <field name="view_mode">form</field>
+             <field name="view_id" ref="account_invoice_baten_form_inherit"/>
+             <field name="act_window_id" ref="action_invoice_tree1_mostaklas_baten"/>
+        </record>
+      <menuitem id="menu_invoice_mostaklas_baten_action" name="فواتير مقاول الباطن" parent="menu_structure_categ" action="action_invoice_tree1_mostaklas_baten" sequence="6"/>
+
+
+
+       <!-- create menu item and view and tree and action for استلام المشروع -->
+
+     <record id="view_lead_form" model="ir.ui.view">
+      <field name="name">view.structure.general.info.form</field>
+      <field name="model">structure.generalinfo</field>
+      <field name="arch" type="xml">
+        <form>
+
+           <header>
+
+
+              <field name="Lead_State" widget="statusbar"/>
+          </header>
+          <sheet class="text-center">
+
+
+               <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+               </div>
+              <div>
+                  <h3>
+                             <field name="project_id"   readonly="1" />
+                        </h3>
+              </div>
+
+              <notebook>
+
+                   <page string="استلام الموقع">
+                      <group>
+
+
+                          <field name="elagna_leed_ids" sting=" لجنة التسليم">
+                              <tree string="لجنة التسليم" editable="bottom" >
+                                  <field name="partner_id" domain="[('is_company', '!=', True)]"  string="العضو" />
+                              </tree>
+                          </field>
+                      </group>
+                      <group>
+                          <field name="NotesOfLead"/>
+                      </group>
+                  </page>
+              </notebook>
+
+
+              <newline/>
+
+              <newline/>
+              <newline/>
+
+
+
+
+
+          </sheet>
+            <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="message_ids" widget="mail_thread"/>
+           </div>
+        </form>
+      </field>
+    </record>
+      <record id="action_lead_info" model="ir.actions.act_window">
+      <field name="name">Contract</field>
+      <field name="res_model">structure.generalinfo</field>
+       <field name="view_mode">tree,form</field>
+    </record>
+      <record model="ir.actions.act_window.view" id="action_lead_tree">
+             <field name="sequence" eval="1"/>
+             <field name="view_mode">tree</field>
+             <field name="view_id" ref="view_mokaysa_tree"/>
+             <field name="act_window_id" ref="action_lead_info"/>
+      </record>
+      <record model="ir.actions.act_window.view" id="action_lead_info_form">
+             <field name="sequence" eval="2"/>
+             <field name="view_mode">form</field>
+             <field name="view_id" ref="view_lead_form"/>
+             <field name="act_window_id" ref="action_lead_info"/>
+        </record>
+      <menuitem id="menu_lead_of_project_action" name="استلام المشروع" parent="menu_structure_categ" action="action_lead_info" sequence="7"/>
+
+
+       <!-- create menu item and view and tree and action for تسليم المشروع -->
+
+     <record id="view_recieve_form" model="ir.ui.view">
+      <field name="name">view.structure.general.info.form</field>
+      <field name="model">structure.generalinfo</field>
+      <field name="arch" type="xml">
+        <form>
+          <header>
+
+              <button name="%(Create_task_from_any_form_action)d"  string="Create Task"
+                                type="action" class="oe_highlight"/>
+              <field name="recieve_State" widget="statusbar"/>
+          </header>
+          <sheet class="text-center">
+
+
+               <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+               </div>
+              <div>
+                  <h3>
+                             <field name="project_id"   readonly="1" />
+                        </h3>
+              </div>
+
+              <notebook>
+                                     <page string="تسليم الموقع">
+                      <group>
+
+
+                          <field name="elagna_recieve_ids" sting="لجنة الاستلام">
+                              <tree string="لجنة الاستلام" editable="bottom" >
+                                  <field name="partner_id" domain="[('is_company', '!=', True)]"  string="العضو" />
+                              </tree>
+                          </field>
+                      </group>
+                       <group>
+                           <field name="recieve_notes" sting="ملاحظات">
+                              <tree string="Notes" editable="bottom" >
+                                  <field name="Note"  />
+                                  <field name="Comment"/>
+                              </tree>
+                          </field>
+                       </group>
+                  </page>
+              </notebook>
+
+
+              <newline/>
+
+              <newline/>
+              <newline/>
+          </sheet>
+            <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="message_ids" widget="mail_thread"/>
+           </div>
+        </form>
+      </field>
+    </record>
+      <record id="action_recieve_info" model="ir.actions.act_window">
+      <field name="name">Contract</field>
+      <field name="res_model">structure.generalinfo</field>
+       <field name="view_mode">tree,form</field>
+    </record>
+      <record model="ir.actions.act_window.view" id="action_recieve_tree">
+             <field name="sequence" eval="1"/>
+             <field name="view_mode">tree</field>
+             <field name="view_id" ref="view_mokaysa_tree"/>
+             <field name="act_window_id" ref="action_recieve_info"/>
+      </record>
+      <record model="ir.actions.act_window.view" id="action_recieve_form">
+             <field name="sequence" eval="2"/>
+             <field name="view_mode">form</field>
+             <field name="view_id" ref="view_recieve_form"/>
+             <field name="act_window_id" ref="action_recieve_info"/>
+        </record>
+      <menuitem id="menu_recieve_of_project_action" name="تسليم المشروع" parent="menu_structure_categ" action="action_recieve_info" sequence="8"/>
+
+
+
+
+
+
+
+
+
+
+
+
+  </data>
+</odoo>
